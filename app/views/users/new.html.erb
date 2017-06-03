@@ -1,0 +1,10 @@
+<%= provide(:title, 'Sign up') %>
+<h1>Sign up</h1>
+
+<%= form_for @user, url: signup_path do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name%>
+	<%= f.label :email %>
+	<%= f.text_field :email%>
+	<%= f.submit "Signup"%>
+<%end%>
