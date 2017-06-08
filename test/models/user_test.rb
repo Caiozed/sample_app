@@ -4,4 +4,13 @@ class UserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  def setup
+    @user = User.new(name: "Example User", email: "user@example.com",
+                     password: "foobar", password_confirmation: "foobar")
+  end
+
+  test "authenticated? should return false on user with nil remember digest" do
+  	assert_not @user.authenticated?("")
+  end
+
 end
