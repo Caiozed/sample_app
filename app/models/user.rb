@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
   		 							format: {with: VALID_EMAIL_REGEX},
   		 							uniqueness: {case_sensitive: false}
-  validates :password, length: {minimum: 6}
+  validates :password, length: {minimum: 6}, allow_nil: true 
   has_secure_password
 
   def User.digest(string)
@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   def remember
   	self.remember_token = User.new_token
- 		update_attribute(:remember_digest, User.digest(remember_token)) 	
+ 		update_attribute(:remember_digest, User.digest(remember_token))	
   end
 
   def authenticated?(remember_token)

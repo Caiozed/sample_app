@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class SessionHelperTest < ActionView::TestCase
-
+	include SessionsHelper
+	
 	def setup 
 		@user = users(:michael)
 		remember(@user)
@@ -12,8 +13,8 @@ class SessionHelperTest < ActionView::TestCase
 		assert is_logged_in?
 	end
 
-	test "current user returns nilwhen remember digest is wrong" do
-		@user.update_attribute(remember_digest: User.digest(User.new_token)))
+	test "current user returns nil when remember digest is wrong" do
+		@user.update_attribute(:remember_digest, User.digest(User.new_token))
 		assert_nil current_user
 	end
 
