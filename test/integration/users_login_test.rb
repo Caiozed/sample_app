@@ -40,6 +40,19 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   	assert flash.empty? 
   end
 
+  test "login links when logged in"  do
+  	log_in_as(@user)
+  	get user_path(@user)
+  	assert_select "a[href=?]", users_path
+  	assert_select "a[href=?]", edit_user_path(@user)
+  end
+
+  test "login links when not logged in"  do
+  	get user_path(@user)
+  	assert_select "a[href=?]", users_path, count: 0
+  	assert_select "a[href=?]", edit_user_path(@user), count: 0
+  end
+
   test "login with remembering" do
   	log_in_as(@user, remember_me: '1')
   	assert_equal assigns(:user).remember_token, cookies['remember_token'] 
